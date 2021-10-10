@@ -1,7 +1,6 @@
-import sys
-from PIL import Image, ImageDraw, ImageFont
 import OpenGL.GL as gl
 import numpy
+from PIL import Image, ImageDraw, ImageFont
 
 
 class Hud:

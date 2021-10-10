@@ -1,4 +1,5 @@
 from abc import abstractmethod
+
 import OpenGL.GL as gl
 
 from color import Color
@@ -7,6 +8,7 @@ from interfaces import IColorable, IMovable, IAnimation
 
 class Entity:
     """ Simple entity that knows its position only """
+
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
@@ -17,6 +19,7 @@ class Entity:
 
 class MovableMixin(IMovable):
     """ Mixin that provides the ability to move to a position or by given dx/dy amount """
+
     def move_to(self, dest_x: int, dest_y: int):
         self.x = dest_x
         self.y = dest_y
@@ -46,6 +49,7 @@ class MovableMixin(IMovable):
 
 class DrawableMixin:
     """ Mixin that provides the ability for the entity to draw itself (abstract) """
+
     @abstractmethod
     def draw(self):
         pass
@@ -64,6 +68,7 @@ class ColorableMixin(IColorable):
 
 class AnimatedMixin:
     """ Mixin to provide the ability to have a number of animations applied to the object """
+
     def __init__(self):
         self.clear_animations()
         self.target = None
@@ -90,6 +95,7 @@ class AnimatedMixin:
 
 class Rectangle(Entity, DrawableMixin, ColorableMixin):
     """ Simple drawable, colorable rectangle """
+
     def __init__(self, x: int, y: int, width: int, height: int, color=None):
         super().__init__(x, y)
         self.width = width
@@ -111,6 +117,7 @@ class Rectangle(Entity, DrawableMixin, ColorableMixin):
 
 class Ball(Rectangle, MovableMixin, AnimatedMixin):
     """ Implementation of the ball in game """
+
     def __init__(self, *args):
         super().__init__(*args)
         AnimatedMixin.__init__(self)
@@ -141,6 +148,7 @@ class Ball(Rectangle, MovableMixin, AnimatedMixin):
 
 class Pad(Rectangle, MovableMixin, AnimatedMixin):
     """ Implementation of the pad in game """
+
     def __init__(self, *args):
         super().__init__(*args)
         AnimatedMixin.__init__(self)

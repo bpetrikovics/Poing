@@ -1,5 +1,5 @@
-from interfaces import IMovable, IAnimation, IScene
 from color import Color
+from interfaces import IMovable, IAnimation, IScene
 
 
 class FadeOut(IAnimation):
@@ -40,7 +40,6 @@ class BallBounceOff(IAnimation):
     ACCEL_Y = 15
 
     def __init__(self, scene: IScene):
-
         print(f"Animation.BallBounceOff: scene is {scene}")
         self.target = None
         self.scene = scene
@@ -56,7 +55,8 @@ class BallBounceOff(IAnimation):
         self.target = target
         (self.speed_x, self.speed_y) = target.get_speed()
 
-        print(f"Animation.BallBounceOff: got target={target}, initial object speed is (dx={self.speed_x}, dy={self.speed_y})")
+        print(
+            f"Animation.BallBounceOff: got target={target}, initial object speed is (dx={self.speed_x}, dy={self.speed_y})")
 
         self.speed_x *= -1
         self.speed_y = -5

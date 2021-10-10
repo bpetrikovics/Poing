@@ -1,5 +1,5 @@
-from interfaces import IScene
 from hud import Hud
+from interfaces import IScene
 
 
 class TestScene(IScene):
@@ -23,7 +23,7 @@ class TestScene(IScene):
 
     def update(self, dt):
         self.hud.update({
-            'fps': f"{1/dt if dt!=0 else 0:.2f}"
+            'fps': f"{1 / dt if dt != 0 else 0:.2f}"
         })
         self.hud.draw()
 

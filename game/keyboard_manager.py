@@ -1,6 +1,7 @@
-from threading import Lock
-from pynput import keyboard
 from collections import deque
+from threading import Lock
+
+from pynput import keyboard
 
 
 class KeyboardManager:
@@ -27,7 +28,7 @@ class KeyboardManager:
     def on_release_handler(self, key):
         if key in self.keys_pressed:
             with self._lock:
-                del(self.keys_pressed[key])
+                del (self.keys_pressed[key])
                 self.queue.appendleft(key)
 
     def next(self):

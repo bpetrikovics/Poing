@@ -1,12 +1,11 @@
 import random
 
-from pynput import keyboard as kb
-
 from animations import FadeOut, BallBounceOff, Flash
 from color import Color
 from entities import Pad, Ball
-from interfaces import IScene
 from hud import Hud
+from interfaces import IScene
+from pynput import keyboard as kb
 
 
 class SinglePadScene(IScene):
@@ -63,11 +62,13 @@ class SinglePadScene(IScene):
         self.height = height
         self.hud.reshape(width, height)
 
-        self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePadScene.BALL_XSIZE, SinglePadScene.BALL_YSIZE, SinglePadScene.PAD_COLOR)
+        self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePadScene.BALL_XSIZE,
+                         SinglePadScene.BALL_YSIZE, SinglePadScene.PAD_COLOR)
         self.ball.c = SinglePadScene.BALL_COLOR
         self.ball.set_speed(SinglePadScene.BALL_SPEED_X, SinglePadScene.BALL_SPEED_Y)
 
-        self.pad = Pad(5, int(self.height/2 - SinglePadScene.PAD_YSIZE/2), SinglePadScene.PAD_XSIZE, SinglePadScene.PAD_YSIZE, SinglePadScene.BALL_COLOR)
+        self.pad = Pad(5, int(self.height / 2 - SinglePadScene.PAD_YSIZE / 2), SinglePadScene.PAD_XSIZE,
+                       SinglePadScene.PAD_YSIZE, SinglePadScene.BALL_COLOR)
         self.ball.c = SinglePadScene.PAD_COLOR
 
     def update(self, dt):
@@ -156,13 +157,13 @@ class SinglePadScene(IScene):
 
         # Check if objects are out of screen after a resize
         # Ball first
-        if self.ball.x+self.ball.width > self.width or self.ball.y+self.ball.height > self.height:
+        if self.ball.x + self.ball.width > self.width or self.ball.y + self.ball.height > self.height:
             self.ended = True
             self.hud.update({"text": "Ball out of bounds\nR to restart"})
         # Then the pad
         if self.pad.y < 0:
             self.pad.y = 0
-        elif self.pad.y+self.pad.height > self.height:
+        elif self.pad.y + self.pad.height > self.height:
             self.pad.y = self.height - self.pad.height
 
     def __repr__(self):
