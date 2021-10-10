@@ -6,6 +6,7 @@ from animations import FadeOut, BallBounceOff, Flash
 from color import Color
 from entities import Pad, Ball
 from interfaces import IScene
+from hud import Hud
 
 
 class SinglePadScene(IScene):
@@ -30,6 +31,8 @@ class SinglePadScene(IScene):
         self.paused = False
         self.ended = False
 
+        self.hud = Hud()
+
         self.keyboard = keyboard_manager
         self.fullscreen_callback = None
 
@@ -37,15 +40,22 @@ class SinglePadScene(IScene):
         self.ball = None
         self.pad = None
 
+        self.init_hud()
+
+    def init_hud(self):
+        self.hud.update({"text": "Q/A: move pad\nSPACE: pause\nF: toggle fullscreen"})
+
     def pause(self):
         if self.paused:
             return
         self.paused = True
+        self.hud.update({"text": "Spacebar to unpause"})
 
     def unpause(self):
         if not self.paused:
             return
         self.paused = False
+        self.init_hud()
 
     def set_display_dimensions(self, width: int, height: int):
         print(f"{self}: received display dimensions")
@@ -77,6 +87,7 @@ class SinglePadScene(IScene):
         # 'r' to restart when game ended
         elif self.ended and next_key == kb.KeyCode.from_char('r'):
             print(f"{self}: restarting")
+            self.init_hud()
             self.ended = False
             random.seed()
             self.ball.set_coords(random.randint(50, self.width), random.randint(0, self.height))
@@ -84,6 +95,7 @@ class SinglePadScene(IScene):
             self.ball.set_color(SinglePadScene.BALL_COLOR)
             self.ball.set_speed(SinglePadScene.BALL_SPEED_X, SinglePadScene.BALL_SPEED_Y)
 
+        # To help us tell whether the pad is moving right now, and if yes, its direction
         pad_move = 0
 
         if not self.ended and self.keyboard.is_pressed('a'):
@@ -106,6 +118,7 @@ class SinglePadScene(IScene):
 
         self.ball.draw()
         self.pad.draw()
+        self.hud.draw()
 
         # Ball at pad width distance from the left wall, checking for collision with the pad
         if self.ball.x <= self.pad.x + self.pad.width:
@@ -125,6 +138,7 @@ class SinglePadScene(IScene):
                     self.ball.clear_animations()
                     self.ball.add_animation(FadeOut(Color(255, 150, 150)))
                     self.ball.add_animation(BallBounceOff(self))
+                    self.hud.update({"text": "Game over\nR to restart"})
 
         if not self.ended and self.ball.x + self.ball.width > self.width:
             self.ball.bounce_x()
