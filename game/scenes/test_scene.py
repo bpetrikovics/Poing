@@ -1,4 +1,5 @@
 from interfaces import IScene
+from hud import Hud
 
 
 class TestScene(IScene):
@@ -6,6 +7,7 @@ class TestScene(IScene):
         self.width = None
         self.height = None
         self.keyboard = keyboard_manager
+        self.hud = Hud()
         self.fullscreen_callback = None
 
     def pause(self):
@@ -20,7 +22,10 @@ class TestScene(IScene):
         self.height = height
 
     def update(self, dt):
-        pass
+        self.hud.update({
+            'fps': f"{1/dt if dt!=0 else 0:.2f}"
+        })
+        self.hud.draw()
 
     def reshape(self, width: int, height: int):
         print(f"{self}: received new resolution {width}x{height}")
