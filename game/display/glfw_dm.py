@@ -12,7 +12,8 @@ class DisplayManager:
 
     TARGET_FPS = 60
     FRAME_TIME = 1/TARGET_FPS
-    FPS_UPDATE_TICKS = 60
+    VSYNC = False
+    DOUBLEBUFFER = glfw.TRUE
 
     def __init__(self, width: int, height: int, title: str):
         self.width = self.original_width = width
@@ -26,6 +27,7 @@ class DisplayManager:
         self.new_time = None
         self.time_diff = 0
         self.tick = 0
+        self.elapsed = 0
 
         glfw.set_error_callback(self.glfw_error_callback)
 
@@ -37,9 +39,9 @@ class DisplayManager:
 
         # These are the default values anyway
         glfw.window_hint(glfw.RESIZABLE, glfw.TRUE)
-        glfw.window_hint(glfw.DOUBLEBUFFER, glfw.TRUE)
+        glfw.window_hint(glfw.DOUBLEBUFFER, DisplayManager.DOUBLEBUFFER)
 
-        # Antialiasing
+        # Antialiasing (0, 4)
         glfw.window_hint(glfw.SAMPLES, 4)
 
         # OpenGL API version for our context
@@ -55,6 +57,7 @@ class DisplayManager:
             sys.exit(-1)
 
         glfw.make_context_current(self.window)
+        glfw.swap_interval(DisplayManager.VSYNC)
         glfw.set_window_size_callback(self.window, self.reshape)
 
         gl.glClearColor(0, 0, 0, 0)
@@ -108,16 +111,19 @@ class DisplayManager:
             return
 
         self.time_diff = self.new_time - self.old_time
+        self.elapsed += self.time_diff
         fps = 1.0/self.time_diff
         sleep_time = DisplayManager.FRAME_TIME - self.time_diff if self.time_diff < DisplayManager.FRAME_TIME else 0
 
         self.tick += 1
-        if self.tick == DisplayManager.FPS_UPDATE_TICKS:
-            glfw.set_window_title(self.window, f"{self.title} | {fps:.2f} FPS")
+        if self.elapsed >= 1:
+            glfw.set_window_title(self.window, f"{self.title} | {fps:.2f} FPS dt={self.time_diff:.4f} ticks={self.tick} elapsed={self.elapsed:.4f}")
             self.tick = 0
+            self.elapsed = 0
 
         if sleep_time != 0:
             time.sleep(sleep_time)
+
 
     def reshape(self, window, width: int, height: int):
         print(f"DisplayManager: reshape from ({self.width}x{self.height}) to ({width}x{height})")
