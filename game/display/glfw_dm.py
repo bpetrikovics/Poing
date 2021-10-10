@@ -11,7 +11,7 @@ class DisplayManager:
     """ A display manager implementation using GLFW """
 
     TARGET_FPS = 60
-    FRAME_TIME = 1/TARGET_FPS
+    FRAME_TIME = 1 / TARGET_FPS
     VSYNC = False
     DOUBLEBUFFER = glfw.TRUE
 
@@ -35,7 +35,8 @@ class DisplayManager:
             print("Could not initialize GLFW, exiting")
             sys.exit(-1)
 
-        print(f"DisplayManager: GLFW {glfw.VERSION_MAJOR}.{glfw.VERSION_MINOR}.{glfw.VERSION_REVISION} init {width}x{height}")
+        print(
+            f"DisplayManager: GLFW {glfw.VERSION_MAJOR}.{glfw.VERSION_MINOR}.{glfw.VERSION_REVISION} init {width}x{height}")
 
         # These are the default values anyway
         glfw.window_hint(glfw.RESIZABLE, glfw.TRUE)
@@ -112,18 +113,18 @@ class DisplayManager:
 
         self.time_diff = self.new_time - self.old_time
         self.elapsed += self.time_diff
-        fps = 1.0/self.time_diff
+        fps = 1.0 / self.time_diff
         sleep_time = DisplayManager.FRAME_TIME - self.time_diff if self.time_diff < DisplayManager.FRAME_TIME else 0
 
         self.tick += 1
         if self.elapsed >= 1:
-            glfw.set_window_title(self.window, f"{self.title} | {fps:.2f} FPS dt={self.time_diff:.4f} ticks={self.tick} elapsed={self.elapsed:.4f}")
+            glfw.set_window_title(self.window,
+                                  f"{self.title} | {fps:.2f} FPS dt={self.time_diff:.4f} ticks={self.tick} ")
             self.tick = 0
             self.elapsed = 0
 
         if sleep_time != 0:
             time.sleep(sleep_time)
-
 
     def reshape(self, window, width: int, height: int):
         print(f"DisplayManager: reshape from ({self.width}x{self.height}) to ({width}x{height})")
@@ -138,7 +139,8 @@ class DisplayManager:
 
         if self.fullscreen:
             print("DisplayManager: switching back from fullscreen")
-            glfw.set_window_monitor(self.window, None, self.original_x, self.original_y, self.original_width, self.original_height, glfw.DONT_CARE)
+            glfw.set_window_monitor(self.window, None, self.original_x, self.original_y, self.original_width,
+                                    self.original_height, glfw.DONT_CARE)
             self.fullscreen = False
         else:
             print("Display: setting fullscreen")

@@ -11,7 +11,7 @@ class DisplayManager:
     """ A display manager implementation using GLUT """
 
     TARGET_FPS = 60
-    FRAME_TIME = 1/TARGET_FPS
+    FRAME_TIME = 1 / TARGET_FPS
 
     def __init__(self, width: int, height: int, title: str):
         self.width = self.original_width = width
@@ -36,8 +36,8 @@ class DisplayManager:
         # Initialize a glut instance which will allow us to customize our window
         glut.glutInit()
 
-        glut.glutInitDisplayMode(glut.GLUT_RGBA)    # Set the display mode to be colored
-        glut.glutInitWindowSize(width, height)      # Set the width and height of your window
+        glut.glutInitDisplayMode(glut.GLUT_RGBA)  # Set the display mode to be colored
+        glut.glutInitWindowSize(width, height)  # Set the width and height of your window
 
         self.window = glut.glutCreateWindow(title)
 
@@ -49,7 +49,7 @@ class DisplayManager:
         self.scene.set_fullscreen_callback(self.toggle_fullscreen)
 
         glut.glutDisplayFunc(self.update)  # Tell OpenGL to call the showScreen method continuously
-        glut.glutIdleFunc(self.update)     # Draw any graphics or shapes in the showScreen function at all times
+        glut.glutIdleFunc(self.update)  # Draw any graphics or shapes in the showScreen function at all times
 
         glut.glutReshapeFunc(self.reshape)  # Called whenever window is resized
 
@@ -88,12 +88,13 @@ class DisplayManager:
 
         self.time_diff = self.new_time - self.old_time
         self.elapsed += self.time_diff
-        fps = 1.0/self.time_diff
+        fps = 1.0 / self.time_diff
         sleep_time = DisplayManager.FRAME_TIME - self.time_diff if self.time_diff < DisplayManager.FRAME_TIME else 0
 
         self.tick += 1
         if self.elapsed >= 1:
-            glut.glutSetWindowTitle(f"{self.title} | {fps:.2f} FPS dt={self.time_diff:.4f} ticks={self.tick} elapsed={self.elapsed:.4f}")
+            glut.glutSetWindowTitle(
+                f"{self.title} | {fps:.2f} FPS dt={self.time_diff:.4f} ticks={self.tick} elapsed={self.elapsed:.4f}")
             self.tick = 0
             self.elapsed = 0
 
