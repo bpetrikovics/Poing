@@ -15,7 +15,7 @@ HEIGHT = 720
 def main():
     display_manager = DisplayManager(WIDTH, HEIGHT, "Poing!")
     keyboard_manager = KeyboardManager()
-    scene = SinglePadScene(keyboard_manager)
+    scene = Scene(keyboard_manager)
 
     # This sets GLUT's display update callbacks to the scene
     # (multiple scenes supported this way). Will also allow the active scene
@@ -33,8 +33,9 @@ if __name__ == '__main__':
     from venvtools import activate
     activate(app_dir)
 
-    from scenes import *
-    from display_manager import DisplayManager
     from keyboard_manager import KeyboardManager
+
+    from scenes import SinglePadScene as Scene
+    from display import GLFWdm as DisplayManager
 
     main()
