@@ -2,7 +2,7 @@
 
 Minimalistic OpenGL "Pong" game
 
-# Usage
+### Usage
 
 Install necessary packages via your OS package manager or (preferred) prepare a virtual environment:
 
@@ -27,3 +27,10 @@ A - move Pad downwards
 Spacebar: pause
 R - restart game after losing
 ```
+
+TODO:
+- implement proper (non immediate mode) OpenGL
+- switch from GLUT to GLFW
+
+E.g.: https://github.com/jcteng/python-opengl-tutorial
+ 
