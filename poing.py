@@ -33,7 +33,7 @@ if __name__ == '__main__':
     from venvtools import activate
     activate(app_dir)
 
-    from single_pad_scene import SinglePadScene
+    from scenes import *
     from display_manager import DisplayManager
     from keyboard_manager import KeyboardManager
 

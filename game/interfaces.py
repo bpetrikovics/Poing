@@ -55,6 +55,10 @@ class IAnimation:
 
 class IScene:
     @abstractmethod
+    def __init__(self, keyboard_manager):
+        pass
+
+    @abstractmethod
     def pause(self):
         pass
 

@@ -8,6 +8,7 @@ from interfaces import IScene
 
 
 class DisplayManager:
+    """ A display manager implementation using GLUT """
 
     TARGET_FPS = 60
     FRAME_TIME = 1/TARGET_FPS
@@ -75,6 +76,8 @@ class DisplayManager:
 
         self.scene.update(self.time_diff)
 
+        glut.glutSwapBuffers()
+
         # Timekeeping
         self.old_time = self.new_time
         self.new_time = time.time()
@@ -96,9 +99,11 @@ class DisplayManager:
             time.sleep(sleep_time)
 
     def reshape(self, width: int, height: int):
-        self.scene.reshape(width, height)
+        print(f"DisplayManager: reshape from ({self.width}x{self.height}) to ({width}x{height})")
+        gl.glViewport(0, 0, width, height)
         self.width = width
         self.height = height
+        self.scene.reshape(width, height)
 
     def toggle_fullscreen(self):
         if self.fullscreen:

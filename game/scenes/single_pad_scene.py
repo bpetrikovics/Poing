@@ -1,7 +1,5 @@
 import random
 
-import OpenGL.GL as gl
-import OpenGL.GLUT as glut
 from pynput import keyboard as kb
 
 from animations import FadeOut, BallBounceOff, Flash
@@ -25,7 +23,7 @@ class SinglePadScene(IScene):
     PAD_MOVE_FACTOR = 5
 
     def __init__(self, keyboard_manager):
-        print("SinglePadScene: created")
+        print(f"{self}: created")
         self.width = None
         self.height = None
 
@@ -50,7 +48,7 @@ class SinglePadScene(IScene):
         self.paused = False
 
     def set_display_dimensions(self, width: int, height: int):
-        print(f"SinglePadScene: received display dimensions")
+        print(f"{self}: received display dimensions")
         self.width = width
         self.height = height
 
@@ -78,7 +76,7 @@ class SinglePadScene(IScene):
             pass
         # 'r' to restart when game ended
         elif self.ended and next_key == kb.KeyCode.from_char('r'):
-            print("SinglePadScene: restarting")
+            print(f"{self}: restarting")
             self.ended = False
             random.seed()
             self.ball.set_coords(random.randint(50, self.width), random.randint(0, self.height))
@@ -134,14 +132,10 @@ class SinglePadScene(IScene):
         if not self.ended and self.ball.y < 0 or self.ball.y + self.ball.height > self.height:
             self.ball.bounce_y()
 
-        # show what we've drawn
-        glut.glutSwapBuffers()
-
     def reshape(self, width: int, height: int):
-        print(f"SinglePadScene: reshape to {width}x{height}")
+        print(f"{self}: received new resolution {width}x{height}")
         self.width = width
         self.height = height
-        gl.glViewport(0, 0, width, height)
 
         # Check if objects are out of screen after a resize
         # Ball first
@@ -154,4 +148,4 @@ class SinglePadScene(IScene):
             self.pad.y = self.height - self.pad.height
 
     def __repr__(self):
-        return "<SinglePadScene>"
+        return "<scenes.SinglePadScene>"
