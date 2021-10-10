@@ -61,6 +61,7 @@ class SinglePadScene(IScene):
         print(f"{self}: received display dimensions")
         self.width = width
         self.height = height
+        self.hud.reshape(width, height)
 
         self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePadScene.BALL_XSIZE, SinglePadScene.BALL_YSIZE, SinglePadScene.PAD_COLOR)
         self.ball.c = SinglePadScene.BALL_COLOR
@@ -151,10 +152,13 @@ class SinglePadScene(IScene):
         self.width = width
         self.height = height
 
+        self.hud.reshape(width, height)
+
         # Check if objects are out of screen after a resize
         # Ball first
         if self.ball.x+self.ball.width > self.width or self.ball.y+self.ball.height > self.height:
             self.ended = True
+            self.hud.update({"text": "Ball out of bounds\nR to restart"})
         # Then the pad
         if self.pad.y < 0:
             self.pad.y = 0

@@ -8,9 +8,16 @@ class Hud:
     def __init__(self):
         print("Hud: init")
         self.data = dict()
+        self.window_width = None
+        self.window_height = None
         self.img_data = None
         self.textureID = None
         self.font = ImageFont.truetype("FiraSans-Bold.ttf", 25)
+
+    def reshape(self, width: int, height: int):
+        print(f"Hud: received window dimensions {width}x{height}")
+        self.window_width = width
+        self.window_height = height
 
     def update(self, data: dict):
         self.data = data
@@ -45,16 +52,16 @@ class Hud:
         gl.glBegin(gl.GL_QUADS)
 
         gl.glTexCoord2f(0, 1)
-        gl.glVertex2f(1000, 25)
+        gl.glVertex2f(self.window_width - 300, 25)
 
         gl.glTexCoord2f(1, 1)
-        gl.glVertex2f(1250, 25)
+        gl.glVertex2f(self.window_width - 25, 25)
 
         gl.glTexCoord2f(1, 0)
-        gl.glVertex2f(1250, 125)
+        gl.glVertex2f(self.window_width - 25, 125)
 
         gl.glTexCoord2f(0, 0)
-        gl.glVertex2f(1000, 125)
+        gl.glVertex2f(self.window_width - 300, 125)
 
         gl.glEnd()
 
