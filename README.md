@@ -28,9 +28,11 @@ Spacebar: pause
 R - restart game after losing
 ```
 
-TODO:
+### TODOs and issues
 - implement proper (non immediate mode) OpenGL
-- switch from GLUT to GLFW
+- handle different perceived game speed between GLUT and GLFW+VSync (same frame rate buf fewer game updates occuring?)
+- in GLUT mode, the ball appears BEHIND the hud while in GLFW mode, it's in front
 
-E.g.: https://github.com/jcteng/python-opengl-tutorial
- 
+### Readme
+- https://github.com/jcteng/python-opengl-tutorial
+- https://www.glfw.org/docs/3.3
