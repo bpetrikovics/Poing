@@ -1,4 +1,6 @@
 evdev==1.4.0
+glfw==2.3.0
+numpy==1.21.2
 Pillow==8.3.2
 pynput==1.7.3
 PyOpenGL==3.1.5
