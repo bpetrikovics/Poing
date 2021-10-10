@@ -56,7 +56,7 @@ class SinglePadScene(IScene):
         self.ball.c = SinglePadScene.BALL_COLOR
         self.ball.set_speed(SinglePadScene.BALL_SPEED_X, SinglePadScene.BALL_SPEED_Y)
 
-        self.pad = Pad(5, 0, SinglePadScene.PAD_XSIZE, SinglePadScene.PAD_YSIZE, SinglePadScene.BALL_COLOR)
+        self.pad = Pad(5, int(self.height/2 - SinglePadScene.PAD_YSIZE/2), SinglePadScene.PAD_XSIZE, SinglePadScene.PAD_YSIZE, SinglePadScene.BALL_COLOR)
         self.ball.c = SinglePadScene.PAD_COLOR
 
     def update(self, dt):
