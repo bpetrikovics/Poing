@@ -17,12 +17,11 @@ def main():
     keyboard_manager = KeyboardManager()
     scene = Scene(keyboard_manager)
 
-    # This sets GLUT's display update callbacks to the scene
+    # This sets display update callbacks to the scene's own methods
     # (multiple scenes supported this way). Will also allow the active scene
     # to send callbacks
     display_manager.set_scene(scene)
 
-    # Will run the GLUT main loop, not returning
     display_manager.main_loop()
 
 
