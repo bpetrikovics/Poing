@@ -46,7 +46,8 @@ if __name__ == '__main__':
     elif args.display == 'glut':
         from display import GLUTdm as DisplayManager
     else:
-        print('WTF')
+        print("I don't know what display manager to load, exiting")
+        sys.exit(-1)
 
     from keyboard_manager import KeyboardManager
     from scenes import SinglePlayerScene as Scene
