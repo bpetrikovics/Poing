@@ -22,12 +22,18 @@ class Hud:
         self.data = data
         img = Image.new('RGBA', (300, 100), color=(15, 15, 15))
         d = ImageDraw.Draw(img)
-        text = self.data.get('text', None)
+        text = self.data.get('text', '')
         d.text((10, 10), text, fill=(55, 85, 255), font=self.font)
         img = img.transpose(Image.FLIP_TOP_BOTTOM)
         self.img_data = numpy.array(list(img.getdata()), numpy.int8)
 
+        # Make sure we deallocate any textures previously bound
+        if self.textureID:
+            gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
+            gl.glDeleteTextures(1, self.textureID)
+
         self.textureID = gl.glGenTextures(1)
+        print(f"Hud: allocated txid#{self.textureID}")
         gl.glBindTexture(gl.GL_TEXTURE_2D, self.textureID)
 
         gl.glTexParameteri(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_WRAP_T, gl.GL_REPEAT);
@@ -35,8 +41,7 @@ class Hud:
         gl.glTexParameteri(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAG_FILTER, gl.GL_LINEAR);
         gl.glTexParameteri(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MIN_FILTER, gl.GL_LINEAR);
 
-        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA, img.size[0], img.size[1], 0, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE,
-                        self.img_data)
+        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA, img.size[0], img.size[1], 0, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE, self.img_data)
         gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
 
     def draw(self):

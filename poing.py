@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     from keyboard_manager import KeyboardManager
 
-    from scenes import SinglePadScene as Scene
+    from scenes import SinglePlayerScene as Scene
     from display import GLFWdm as DisplayManager
 
     main()

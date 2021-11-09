@@ -37,8 +37,7 @@ R - restart game after losing
 
 ### TODOs and issues
 - Implement proper (non immediate mode) OpenGL
-- Handle different perceived game speed between GLUT and GLFW+VSync (same frame rate
-but fewer game updates occurring - fix "tick" logic?)
+- Handle different perceived game speed between GLUT and GLFW+VSync (same frame rate but fewer game updates occurring - fix "tick" logic?)
 - In GLUT mode, the ball appears BEHIND the hud while in GLFW mode, it's in front
 - Colors!
 - Textures

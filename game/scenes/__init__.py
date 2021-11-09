@@ -1,4 +1,4 @@
-from .single_pad_scene import SinglePadScene
+from .single_player_scene import SinglePlayerScene
 from .test_scene import TestScene
 
-__all__ = ['SinglePadScene', 'TestScene']
+__all__ = ['SinglePlayerScene', 'TestScene']

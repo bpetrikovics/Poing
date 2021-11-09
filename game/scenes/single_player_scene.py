@@ -8,7 +8,7 @@ from interfaces import IScene
 from pynput import keyboard as kb
 
 
-class SinglePadScene(IScene):
+class SinglePlayerScene(IScene):
     """ Defines a single pad game scene """
 
     BALL_COLOR = Color(255, 255, 255)
@@ -62,14 +62,14 @@ class SinglePadScene(IScene):
         self.height = height
         self.hud.reshape(width, height)
 
-        self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePadScene.BALL_XSIZE,
-                         SinglePadScene.BALL_YSIZE, SinglePadScene.PAD_COLOR)
-        self.ball.c = SinglePadScene.BALL_COLOR
-        self.ball.set_speed(SinglePadScene.BALL_SPEED_X, SinglePadScene.BALL_SPEED_Y)
+        self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePlayerScene.BALL_XSIZE,
+                         SinglePlayerScene.BALL_YSIZE, SinglePlayerScene.PAD_COLOR)
+        self.ball.c = SinglePlayerScene.BALL_COLOR
+        self.ball.set_speed(SinglePlayerScene.BALL_SPEED_X, SinglePlayerScene.BALL_SPEED_Y)
 
-        self.pad = Pad(5, int(self.height / 2 - SinglePadScene.PAD_YSIZE / 2), SinglePadScene.PAD_XSIZE,
-                       SinglePadScene.PAD_YSIZE, SinglePadScene.BALL_COLOR)
-        self.ball.c = SinglePadScene.PAD_COLOR
+        self.pad = Pad(5, int(self.height / 2 - SinglePlayerScene.PAD_YSIZE / 2), SinglePlayerScene.PAD_XSIZE,
+                       SinglePlayerScene.PAD_YSIZE, SinglePlayerScene.BALL_COLOR)
+        self.ball.c = SinglePlayerScene.PAD_COLOR
 
     def update(self, dt):
         # Check keyboard
@@ -94,18 +94,18 @@ class SinglePadScene(IScene):
             random.seed()
             self.ball.set_coords(random.randint(50, self.width), random.randint(0, self.height))
             self.ball.clear_animations()
-            self.ball.set_color(SinglePadScene.BALL_COLOR)
-            self.ball.set_speed(SinglePadScene.BALL_SPEED_X, SinglePadScene.BALL_SPEED_Y)
+            self.ball.set_color(SinglePlayerScene.BALL_COLOR)
+            self.ball.set_speed(SinglePlayerScene.BALL_SPEED_X, SinglePlayerScene.BALL_SPEED_Y)
 
         # To help us tell whether the pad is moving right now, and if yes, its direction
         pad_move = 0
 
         if not self.ended and self.keyboard.is_pressed('a'):
-            self.pad.move_by(0, SinglePadScene.PAD_MOVE_FACTOR)
+            self.pad.move_by(0, SinglePlayerScene.PAD_MOVE_FACTOR)
             pad_move = 1
 
         if not self.ended and self.keyboard.is_pressed('q'):
-            self.pad.move_by(0, -SinglePadScene.PAD_MOVE_FACTOR)
+            self.pad.move_by(0, -SinglePlayerScene.PAD_MOVE_FACTOR)
             pad_move = -1
 
         if self.pad.y < 0:
@@ -167,4 +167,4 @@ class SinglePadScene(IScene):
             self.pad.y = self.height - self.pad.height
 
     def __repr__(self):
-        return "<scenes.SinglePadScene>"
+        return "<scenes.SinglePlayerScene>"
