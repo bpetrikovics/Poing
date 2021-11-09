@@ -62,7 +62,8 @@ class SinglePlayerScene(IScene):
         self.height = height
         self.hud.reshape(width, height)
 
-        self.ball = Ball(int(self.width / 2), int(self.height / 2), SinglePlayerScene.BALL_XSIZE,
+        random.seed()
+        self.ball = Ball(random.randint(50, self.width), random.randint(0, self.height), SinglePlayerScene.BALL_XSIZE,
                          SinglePlayerScene.BALL_YSIZE, SinglePlayerScene.PAD_COLOR)
         self.ball.c = SinglePlayerScene.BALL_COLOR
         self.ball.set_speed(SinglePlayerScene.BALL_SPEED_X, SinglePlayerScene.BALL_SPEED_Y)
