@@ -29,6 +29,7 @@ class Hud:
 
         # Make sure we deallocate any textures previously bound
         if self.textureID:
+            print(f"Hud: unbinding and deallocating txid#{self.textureID}")
             gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
             gl.glDeleteTextures(1, self.textureID)
 
