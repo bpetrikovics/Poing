@@ -1,3 +1,5 @@
+import os
+
 import OpenGL.GL as gl
 import numpy
 from PIL import Image, ImageDraw, ImageFont
@@ -11,7 +13,11 @@ class Hud:
         self.window_height = None
         self.img_data = None
         self.textureID = None
-        self.font = ImageFont.truetype("FiraSans-Bold.ttf", 25)
+        self.font_filename = "FiraSans-Bold.ttf"
+        self.font_size = 25
+
+        self.font = ImageFont.truetype(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                                    "..", self.font_filename), self.font_size)
 
     def reshape(self, width: int, height: int):
         print(f"Hud: received window dimensions {width}x{height}")
@@ -42,7 +48,8 @@ class Hud:
         gl.glTexParameteri(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAG_FILTER, gl.GL_LINEAR);
         gl.glTexParameteri(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MIN_FILTER, gl.GL_LINEAR);
 
-        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA, img.size[0], img.size[1], 0, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE, self.img_data)
+        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA, img.size[0], img.size[1], 0, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE,
+                        self.img_data)
         gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
 
     def draw(self):
