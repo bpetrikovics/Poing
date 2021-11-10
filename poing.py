@@ -13,8 +13,8 @@ WIDTH = 1280
 HEIGHT = 720
 
 
-def main():
-    display_manager = DisplayManager(WIDTH, HEIGHT, "Poing!")
+def main(in_args: argparse.Namespace):
+    display_manager = DisplayManager(in_args.width, in_args.height, "Poing!")
     keyboard_manager = KeyboardManager()
     scene = Scene(keyboard_manager)
 
@@ -33,6 +33,15 @@ if __name__ == '__main__':
                         choices=['glut', 'glfw'],
                         default='glfw',
                         help='Display manager to use')
+    parser.add_argument('--width',
+                        type=int,
+                        default=WIDTH,
+                        help="Window width")
+    parser.add_argument('--height',
+                        type=int,
+                        default=HEIGHT,
+                        help="Window height")
+
     args = parser.parse_args()
 
     app_dir = os.path.abspath(os.path.dirname(__file__))
@@ -52,4 +61,4 @@ if __name__ == '__main__':
     from keyboard_manager import KeyboardManager
     from scenes import SinglePlayerScene as Scene
 
-    main()
+    main(args)
