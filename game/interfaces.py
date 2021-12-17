@@ -1,9 +1,9 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 from color import Color
 
 
-class IColorable:
+class IColorable(ABC):
     @abstractmethod
     def set_color(self, color: Color):
         pass
@@ -13,7 +13,7 @@ class IColorable:
         pass
 
 
-class IMovable:
+class IMovable(ABC):
     @abstractmethod
     def move_to(self, dest_x: int, dest_y: int):
         pass
@@ -39,7 +39,7 @@ class IMovable:
         pass
 
 
-class IAnimation:
+class IAnimation(ABC):
     @abstractmethod
     def update(self, dt: int):
         pass
@@ -53,7 +53,7 @@ class IAnimation:
         pass
 
 
-class IScene:
+class IScene(ABC):
     @abstractmethod
     def __init__(self, keyboard_manager):
         pass
