@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 import OpenGL.GL as gl
 
@@ -47,7 +47,7 @@ class MovableMixin(IMovable):
         self.y += self.speed_y
 
 
-class DrawableMixin:
+class DrawableMixin(ABC):
     """ Mixin that provides the ability for the entity to draw itself (abstract) """
 
     @abstractmethod
